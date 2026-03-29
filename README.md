@@ -1,33 +1,56 @@
-# SIWY: Wpływ struktury promptu na odpowiedzi llm - analiza attention
+# Wpływ struktury promptu na odpowiedzi modelu językowego - analiza attention
 
-Projekt badawczy realizowany w ramach przedmiotu **Wyjaśnialna Sztuczna Inteligencja (SIWY)**.
-Celem projektu jest zbadanie za pomocą narzędzi XAI, w jaki sposób drobne zmiany w poleceniach (np. ton, kontekst, ograniczenia) wpływają na rozkład mechanizmu "uwagi" (Attention Matrix) w dużych modelach językowych (na przykładzie *Gemma-3-4B*).
+Przedmiot: Wyjaśnialna Sztuczna Inteligencja (SIWY)
 
-**Autorzy (Zespół):**
-- Bartłomiej Dmitruk
-- Maciej Matuszewski
-- Magdalena Kalińska
+Zespół: Bartłomiej Dmitruk, Maciej Matuszewski, Magdalena Kalińska
 
-## Wymagania i instalacja
+Analiza wag attention w Gemma 3 4B na zbiorze par promptów (bazowy vs zmodyfikowany) w pięciu kategoriach: styl, ton/rola, formalność, framing, reformulacja. Pipeline ekstrakcji attention z podziałem na warstwy lokalne (sliding window) i globalne + atrybucja via Inseq.
 
-Projekt używa zarządzania zależnościami za pomocą `pyproject.toml` i wymaga Pythona w wersji np. 3.11.
+## Wymagania
 
-```bash
-# 1. Tworzenie i aktywacja wirtualnego środowiska
-python -m venv .venv
-source .venv/Scripts/activate  # (Windows: powershell)
-# lub: source .venv/bin/activate (Linux/Mac)
+- Python >= 3.11
+- GPU z min. ~8 GB VRAM
+- uv (package manager)
 
-# 2. Instalacja zależności projektu w trybie edytowalnym
-pip install -e .
-```
-
-## Konfiguracja i Uruchamianie
-
-Projekt jest integrowany z narzędziem **Weights & Biases (WandB)** do śledzenia eksperymentów oraz systemem **Hydra** do wstrzykiwania konfiguracji.
-Cała główna konfiguracja hiperparametrów eksperymentu żyje w pliku `conf/config.yaml`.
+## Instalacja
 
 ```bash
-# Wykonanie eksperymentu
-python run_experiment.py
+uv sync
 ```
+
+## Uruchamianie
+
+Konfiguracja: `conf/config.yaml`
+
+```bash
+uv run invoke run              # ekstrakcja attention (all 34 layers, local/global split)
+uv run invoke run-inseq        # atrybucja Inseq
+uv run invoke report           # generowanie raportu HTML
+```
+
+Nadpisywanie parametrów hydra:
+
+```bash
+uv run invoke run --config-overrides="model.name=google/gemma-3-4b-pt experiment_name=test_run"
+```
+
+## Struktura projektu
+
+```
+conf/               konfiguracja hydra
+data/raw/           dataset promptów (niemutowalny)
+data/processed/     wyniki eksperymentów (tensory, heatmapy)
+docs/               design proposal, TODO
+scripts/            entry pointy (run_experiment, run_inseq, generate_report)
+src/
+  config/           stałe modelu (warstwy, indeksy)
+  data/             ładowanie datasetu
+  models/           ekstrakcja attention, agregacja per-layer
+  attribution/      analiza Inseq
+  visualization/    heatmapy, raport HTML
+tests/              testy pytest
+```
+
+## Narzędzia
+
+uv, hydra, invoke, ruff, pytest, transformers, inseq, bertviz, wandb, loguru

@@ -6,7 +6,9 @@ Semestr: 26L
 
 ---
 
-## Cel i problem badawczy
+## Design Proposal
+
+### Cel i problem badawczy
 
 Małe zmiany w treści promptu potrafią znacząco zmienić charakter odpowiedzi modelu językowego. Celem projektu jest zbadanie, które tokeny w prompcie przyciągają największą uwagę modelu (mierzoną wagami attention) i czy pokrywa się to z intuicją człowieka co do „ważnych" części zapytania.
 
@@ -14,7 +16,7 @@ Projekt łączy budowę narzędzia do wizualizacji i analizy attention z kontrol
 
 ---
 
-## Pytania badawcze
+### Pytania badawcze
 
 RQ1: Czy tokeny pełniące funkcję instrukcji (np. „krótko", „jako ekspert", „napisz formalnie") mają wyższe wagi attention niż tokeny treści merytorycznej?
 
@@ -24,7 +26,7 @@ RQ3: Czy różnice w rozkładzie attention między parami promptów są widoczne
 
 ---
 
-## Przegląd literatury
+### Przegląd literatury
 
 | #   | Tytuł / Autorzy                                                                       | Rok  | Główna teza                                                                                                                              |
 | --- | ------------------------------------------------------------------------------------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,13 +42,13 @@ RQ3: Czy różnice w rozkładzie attention między parami promptów są widoczne
 
 ---
 
-## Metodologia
+### Metodologia
 
-### Model
+#### Model
 
 Gemma 3 4B (Google, licencja Gemma) - dense transformer, 34 warstwy, 8 głowic attention (GQA 2:1), kontekst 128k tokenów. Inferencja lokalna przez HuggingFace Transformers z `output_attentions=True`, co daje pełny dostęp do macierzy attention per warstwa i per głowica. W BF16 sam model zajmuje ~8 GB VRAM, z KV cache przy 32k kontekście ~12.7 GB. Z kwantyzacją 4-bit (`bitsandbytes` NF4) wagi zajmują ~2.6 GB, z KV cache przy 32k ~7.3 GB. Sliding window attention w większości warstw + globalne attention co kilka warstw — istotne przy interpretacji wzorców attention.
 
-### Zbiór promptów
+#### Zbiór promptów
 
 Ręcznie przygotowany zestaw promptów w parach (bazowy vs zmodyfikowany) w pięciu kategoriach:
 
@@ -58,7 +60,7 @@ Ręcznie przygotowany zestaw promptów w parach (bazowy vs zmodyfikowany) w pię
 | Kontekst / framing      | Ta sama treść, dodanie kontekstu lub ograniczenia | „Opisz fotosyntezę" vs. „Dla ucznia 5. klasy opisz fotosyntezę"                       |
 | Negacja / reformulacja  | Ta sama intencja, inna struktura zdania           | „Co powoduje deszcz?" vs. „Dlaczego pada deszcz?"                                     |
 
-### Analiza
+#### Analiza
 
 Dla każdego promptu:
 
@@ -71,7 +73,7 @@ Dla każdego promptu:
 
 ---
 
-## Metryki ewaluacji
+### Metryki ewaluacji
 
 | Metryka                                     | Opis                                                                     |
 | ------------------------------------------- | ------------------------------------------------------------------------ |
@@ -83,12 +85,13 @@ Analiza jest jakościowa i ilościowa - obok liczb ważne są obserwacje i komen
 
 ---
 
-## Narzędzia i technologie
+### Narzędzia i technologie
 
 | Element                 | Technologia                                     |
 | ----------------------- | ----------------------------------------------- |
 | Język                   | Python 3.11                                     |
 | Model / inference       | `transformers` (Gemma 3 4B, `bitsandbytes` NF4) |
+| Atrybucja XAI          | `inseq` (attention, saliency, integrated gradients) |
 | Wizualizacja attention  | `bertviz`                                       |
 | Obliczenia              | `numpy`, `pandas`                               |
 | Wykresy                 | `matplotlib`, `seaborn`                         |
@@ -104,7 +107,7 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 
 ---
 
-## Harmonogram
+### Harmonogram
 
 | Tydzień | Daty          | Zadania                                                                                                     |
 | ------- | ------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -118,7 +121,7 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 
 ---
 
-## Ryzyka i ograniczenia
+### Ryzyka i ograniczenia
 
 | Ryzyko                                                                                               | Mitygacja                                                                                       |
 | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -129,7 +132,7 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 
 ---
 
-## Deliverables
+### Deliverables
 
 - [x] Design Proposal (ten dokument)
 - [ ] Dataset promptów
@@ -142,7 +145,7 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 
 ---
 
-## Bibliografia
+### Bibliografia
 
 1. Vaswani, A., et al. (2017). _Attention Is All You Need_. NeurIPS 2017. https://arxiv.org/abs/1706.03762
 2. Jain, S., & Wallace, B. C. (2019). _Attention is not Explanation_. NAACL 2019. https://arxiv.org/abs/1902.10186
