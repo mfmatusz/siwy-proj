@@ -95,10 +95,10 @@ Analiza jest jakościowa i ilościowa - obok liczb ważne są obserwacje i komen
 | Środowisko              | `venv` + `pyproject.toml`                       |
 | Linting / formatowanie  | `ruff`                                          |
 | Testy                   | `pytest`                                        |
-| Uruchamianie            | Skrypty `typer`                                 |
+| Uruchamianie            | `hydra` + `invoke`                              |
 | Dokumentacja            | `README.md` + `USAGE.md`                        |
 | Wersjonowanie           | Git + Conventional Commits                      |
-| Śledzenie eksperymentów | Pliki `.csv` z wynikami + opcjonalnie W&B       |
+| Śledzenie eksperymentów | W&B + pliki `.csv` z wynikami                   |
 
 Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV cache przy 32k). Inferencja lokalna przez HuggingFace Transformers z `attn_implementation="eager"`.
 
@@ -108,7 +108,7 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 
 | Tydzień | Daty          | Zadania                                                                                                     |
 | ------- | ------------- | ----------------------------------------------------------------------------------------------------------- |
-| 1       | 01.04 – 07.04 | Setup repozytorium, środowisko, pierwszy forward pass przez Gemma 3 4B (Transformers), ekstrakcja attention |
+| 1       | 01.04 – 07.04 | Setup repozytorium, środowisko, pierwszy forward pass przez Gemma 3 4B (Transformers), ekstrakcja attention. Brak trenowania modeli — wyłącznie inferencja na GPU z min. ~8 GB VRAM (NF4) |
 | 2       | 08.04 – 14.04 | Przygotowanie datasetu promptów (5 kategorii), skrypt do batch inference i zapisu wyników                   |
 | 3       | 15.04 – 21.04 | Prototyp: działające wizualizacje attention dla kilku przykładów, wstępna analiza literaturowa              |
 | 4       | 22.04 – 28.04 | Obliczenie metryk dla pełnego datasetu, wstępne obserwacje, testy jednostkowe                               |
