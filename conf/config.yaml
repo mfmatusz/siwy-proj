@@ -12,10 +12,11 @@ paths:
 
 model:
   name: "google/gemma-3-4b-it"
-  quantization: "none" # 'nf4', 'bf16', 'none'
-  device: "cpu"
+  quantization: "bf16"
+  device: "mps"
 
 wandb:
   project: "siwy-xai-llm"
   entity: null
   tags: ["baseline"]
+  enabled: true
