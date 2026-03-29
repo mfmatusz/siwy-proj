@@ -1,10 +1,12 @@
 import matplotlib
+
 matplotlib.use("Agg")
+
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import seaborn as sns
 import torch
-from pathlib import Path
 
 
 def plot_attention_heatmap(

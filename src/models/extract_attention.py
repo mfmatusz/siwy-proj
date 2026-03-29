@@ -1,14 +1,19 @@
 import torch
+from loguru import logger
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 
-def load_model_and_tokenizer(model_name: str, quantization: str = "nf4", device: str = "cuda"):
+def load_model_and_tokenizer(model_name: str, quantization: str = "bf16", device: str = "mps") -> tuple:
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     model_kwargs = {
         "output_attentions": True,
         "attn_implementation": "eager",
     }
+
+    if quantization == "nf4" and device == "mps":
+        logger.warning("NF4 quantization is not supported on MPS; falling back to bf16.")
+        quantization = "bf16"
 
     if quantization == "nf4":
         model_kwargs["quantization_config"] = BitsAndBytesConfig(
@@ -28,10 +33,13 @@ def load_model_and_tokenizer(model_name: str, quantization: str = "nf4", device:
     return model, tokenizer
 
 
-def run_inference_and_extract_attention(model, tokenizer, prompt: str, device: str = "cuda"):
+def run_inference_and_extract_attention(
+    model, tokenizer, prompt: str, device: str = "mps"
+) -> tuple[tuple[torch.Tensor, ...], torch.Tensor]:
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
     with torch.no_grad():
         outputs = model(**inputs, output_attentions=True)
 
-    return outputs.attentions, inputs["input_ids"]
+    attentions = tuple(a.cpu() for a in outputs.attentions)
+    return attentions, inputs["input_ids"].cpu()
