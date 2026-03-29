@@ -1,0 +1,21 @@
+defaults:
+  - _self_
+
+experiment_name: "attention_baseline"
+seed: 42
+
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  notebooks: "notebooks"
+  outputs: "outputs"
+
+model:
+  name: "google/gemma-3-4b-it"
+  quantization: "none" # 'nf4', 'bf16', 'none'
+  device: "cpu"
+
+wandb:
+  project: "siwy-xai-llm"
+  entity: null
+  tags: ["baseline"]

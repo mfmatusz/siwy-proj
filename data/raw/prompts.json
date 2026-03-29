@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1_style_short",
+    "category": "instruction_style",
+    "base_prompt": "Wyjaśnij pojęcie sztucznej inteligencji.",
+    "modified_prompt": "Wyjaśnij pojęcie sztucznej inteligencji krótko i prosto."
+  },
+  {
+    "id": "2_role_expert",
+    "category": "instruction_role",
+    "base_prompt": "Co to jest inflacja?",
+    "modified_prompt": "Jako wybitny ekspert ekonomii makro, wyjaśnij co to jest inflacja."
+  },
+  {
+    "id": "test_duzy_tekst_ai",
+    "category": "Kontekst / framing",
+    "base_prompt": "Sztuczna inteligencja (AI) odnosi się do systemów komputerowych zdolnych do wykonywania zadań, które zazwyczaj wymagają ludzkiej inteligencji. Obejmują one uczenie się, rozumowanie, rozwiązywanie problemów, percepcję i rozumienie języka naturalnego. Rozwój AI opiera się w dużej mierze na uczeniu maszynowym, gdzie algorytmy i modele statystyczne uczą się wzorców na podstawie ogromnych ilości danych, zamiast być jawnie programowanymi. Jedną z najbardziej zaawansowanych dziedzin jest głębokie uczenie (deep learning), wykorzystujące sztuczne sieci neuronowe o wielu warstwach. Dzięki postępowi w dziedzinie mocy obliczeniowej oraz dostępności big data, modele językowe takie jak transformery zrewolucjonizowały NLP. Pomimo tych ogromnych osiągnięć, współczesna sztuczna inteligencja nadal jest 'wąska' (Narrow AI), co oznacza, że jest wyspecjalizowana w konkretnych zadaniach i nie posiada ogólnej świadomości na poziomie ludzkim (AGI). Wyzwania związane z AI obejmują kwestie etyczne, halucynacje modeli, wysokie koszty energetyczne niezbędne do trenowania oraz pilną potrzebę tworzenia systemów wyjaśnialnych, w których człowiek potrafi dokładnie prześledzić proces decyzyjny maszyny.",
+    "modified_prompt": "Podsumuj poniższy tekst w trzech krótkich, żołnierskich punktach, omijając cały żargon techniczny. Masz skupić się wyłącznie na wadach i zagrożeniach. Gotowy tekst do analizy: Sztuczna inteligencja (AI) odnosi się do systemów komputerowych zdolnych do wykonywania zadań, które zazwyczaj wymagają ludzkiej inteligencji. Obejmują one uczenie się, rozumowanie, rozwiązywanie problemów, percepcję i rozumienie języka naturalnego. Rozwój AI opiera się w dużej mierze na uczeniu maszynowym, gdzie algorytmy i modele statystyczne uczą się wzorców na podstawie ogromnych ilości danych, zamiast być jawnie programowanymi. Jedną z najbardziej zaawansowanych dziedzin jest głębokie uczenie (deep learning), wykorzystujące sztuczne sieci neuronowe o wielu warstwach. Dzięki postępowi w dziedzinie mocy obliczeniowej oraz dostępności big data, modele językowe takie jak transformery zrewolucjonizowały NLP. Pomimo tych ogromnych osiągnięć, współczesna sztuczna inteligencja nadal jest 'wąska' (Narrow AI), co oznacza, że jest wyspecjalizowana w konkretnych zadaniach i nie posiada ogólnej świadomości na poziomie ludzkim (AGI). Wyzwania związane z AI obejmują kwestie etyczne, halucynacje modeli, wysokie koszty energetyczne niezbędne do trenowania oraz pilną potrzebę tworzenia systemów wyjaśnialnych, w których człowiek potrafi dokładnie prześledzić proces decyzyjny maszyny."
+  }
+]
