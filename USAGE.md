@@ -27,7 +27,7 @@
 ### Wymagania Programowe
 - Python >= 3.11
 - [`uv`](https://docs.astral.sh/uv/) — menadżer pakietów i środowisk wirtualnych
-- Dostęp do modelu `google/gemma-3-4b-pt` na Hugging Face (wymagana akceptacja warunków licencji)
+- Dostęp do modelu `google/gemma-3-4b-it` na Hugging Face (wymagana akceptacja warunków licencji)
 
 ### Instalacja `uv`
 ```bash
