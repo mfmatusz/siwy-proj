@@ -1,9 +1,5 @@
 # TODO
 
-## Setup projektu
-
-- [ ] Dodać `USAGE.md` (instrukcja użytkowania — wymagana przez regulamin §1 pkt 3, 9)
-
 ## Dane
 
 - [ ] Rozbudować dataset do pełnego rozmiaru (więcej par per kategoria)
@@ -25,13 +21,13 @@
 
 ## Dokumentacja
 
-- [ ] Rozbudować `README.md` — opis projektu, setup, wymagania, struktura repo
-- [ ] Napisać `USAGE.md` — instrukcja użytkowania krok po kroku
+- [ ] Rozbudować `README.md` — struktura repo
+- [ ] Edytować `USAGE.md` w miarę rozwoju projektu — instrukcja użytkowania krok po kroku
 - [ ] Przygotować system notatek do weekly standup (regulamin §1 pkt 7) — np. `docs/weekly/` lub GitHub Issues
 
 ## Analiza literatury (design-proposal)
 
-- [ ] Rozbudować tabelę literatury o brakujące kolumny wymagane przez regulamin §1 pkt 6: autorski komentarz, dostępność kodu/modeli, metryki ewaluacji w artykule, zasoby obliczeniowe autorów
+- [ ] Rozbudować tabelę literatury w miarę rozwoju projektu
 
 ## Design-proposal
 
