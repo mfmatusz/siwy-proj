@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Sections: Added, Changed, Removed, Fixed.
 
+## 31.03.2026
+
+### Added
+
+- USAGE.md — szczegółowa instrukcja konfiguracji środowiska, uruchamiania eksperymentów i rozwiązywania problemów.
+- Pokrycie tematyczne literatury w docs/report.md, zgodnie z z §1 pkt 6 regulaminu (wybór literatury powinien być uzasadniony)
+
+### Changed
+
+- Przegląd literatury i bibliografię w docs/report.md, zgodnie z §1 pkt 6 regulaminu — dodane kolumny: autorski komentarz, dostępność kodu/modeli, metryki ewaluacji w artykule, zasoby obliczeniowe autorów.
+- README.md — dodany link do USAGE.md, rozbudowanie opisu projektu i sekcji
+- docs/TODO.md.
+
 ## 29.03.2026
 
 ### Added
