@@ -47,7 +47,7 @@
 
 - [ ] Diff heatmapy (modified minus base) — wizualizacja co się zmienia między parami
 - [ ] Wykresy zbiorcze: bar chart średniej attention na tokeny instrukcji vs treści per kategoria promptów
-- [ ] Gradient attribution (saliency, integrated gradients) via Inseq — wymaga GPU z CUDA, na MPS zbyt wolne (~40 min/prompt)
+- [ ] Gradient attribution (saliency, integrated gradients) via Inseq — wymaga GPU z CUDA, na MPS zbyt wolne (>40 min/prompt)
 
 ## Deliverables
 

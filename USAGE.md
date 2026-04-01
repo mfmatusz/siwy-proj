@@ -22,7 +22,7 @@
 - GPU z co najmniej **8 GB VRAM** (wymagane do uruchomienia Gemma 3 4B)
 - Minimum 16 GB RAM systemowego
 
-> **Uwaga:** Atrybucja Inseq wymaga GPU z CUDA. Na Apple MPS jest funkcjonalna, ale bardzo wolna (~40 min/prompt).
+> **Uwaga:** Atrybucja attention via Inseq działa szybko (~12s/prompt). Metody gradientowe (saliency, integrated gradients) wymagają GPU z CUDA — na MPS są zbyt wolne (~40 min/prompt) i są wyłączone domyślnie.
 
 ### Wymagania Programowe
 - Python >= 3.11
@@ -145,7 +145,7 @@ data/processed/<experiment_name>_inseq/
 
 Wizualizacje HTML atrybucji są równolegle logowane do W&B.
 
-> **Wymaganie sprzętowe:** Na MPS działa, ale bardzo wolno (~40 minut na prompt). Zalecane uruchamianie na maszynie z CUDA lub pominięcie tego kroku podczas testów lokalnych.
+> Metoda attention działa szybko na MPS (~12s/prompt). Metody gradientowe (saliency, integrated gradients) wymagają CUDA i są wyłączone domyślnie.
 
 ---
 
@@ -177,7 +177,7 @@ i otwiera się automatycznie w domyślnej przeglądarce po wygenerowaniu.
 uv run invoke run --config-overrides="experiment_name=moj_eksperyment"
 # wyniki: data/processed/moj_eksperyment/
 
-# 2. (Opcjonalnie) Atrybucja Inseq — na MPS bardzo wolna
+# 2. Atrybucja Inseq (attention, ~2 min na 10 par)
 uv run invoke run-inseq --config-overrides="experiment_name=moj_eksperyment"
 # wyniki: data/processed/moj_eksperyment_inseq/
 
@@ -265,8 +265,8 @@ Pipeline przejdzie automatycznie w tryb dry-run — przetworzy dataset bez uruch
 **`401 Unauthorized` przy pobieraniu modelu**
 Upewnij się, że zaakceptowałeś warunki licencji Gemma na stronie [huggingface.co/google/gemma-3-4b-it](https://huggingface.co/google/gemma-3-4b-it) i że token HF jest poprawnie ustawiony (`huggingface-cli login` lub `HF_TOKEN`).
 
-**Powolna atrybucja Inseq na MacOS (MPS)**
-To znane ograniczenie — Inseq na MPS działa ~40 minut na prompt. Zalecane jest użycie maszyny z CUDA lub pominięcie tego kroku podczas testów lokalnych.
+**Powolna atrybucja gradientowa na MacOS (MPS)**
+Dotyczy tylko metod gradientowych (saliency, integrated gradients), nie attention. Attention attribution działa szybko (~12s/prompt). Metody gradientowe wymagają CUDA.
 
 **`ModuleNotFoundError`**
 Upewnij się, że używasz `uv run` (nie `python` bezpośrednio), lub że środowisko wirtualne jest aktywne:
