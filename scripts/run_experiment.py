@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import dotenv
 import hydra
+
+dotenv.load_dotenv()
 import torch
 from hydra.utils import get_original_cwd
 from loguru import logger
@@ -53,6 +56,8 @@ def main(cfg: DictConfig):
         modified_prompt = item["modified_prompt"]
 
         logger.info(f"Processing pair: {prompt_id}")
+        logger.info(f"  Base:     {base_prompt}")
+        logger.info(f"  Modified: {modified_prompt}")
 
         if model is None or tokenizer is None:
             continue

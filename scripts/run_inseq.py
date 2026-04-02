@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import dotenv
 import hydra
+
+dotenv.load_dotenv()
 import torch
 from hydra.utils import get_original_cwd
 from loguru import logger
@@ -35,8 +38,6 @@ def main(cfg: DictConfig):
     prompts = load_prompts(project_root / cfg.paths.data_raw / "prompts.json")
     logger.info(f"Loaded {len(prompts)} prompt pairs.")
 
-    generation_kwargs = {"max_new_tokens": 1}
-
     for method in ATTRIBUTION_METHODS:
         logger.info(f"Loading model with method: {method}")
         model = load_inseq_model(cfg.model.name, method)
@@ -47,16 +48,18 @@ def main(cfg: DictConfig):
             modified_prompt = item["modified_prompt"]
 
             logger.info(f"[{method}] Processing: {prompt_id}")
+            logger.info(f"  Base:     {base_prompt}")
+            logger.info(f"  Modified: {modified_prompt}")
 
-            attr_base = run_attribution(model, base_prompt, generation_kwargs=generation_kwargs)
-            attr_mod = run_attribution(model, modified_prompt, generation_kwargs=generation_kwargs)
+            attr_base = run_attribution(model, base_prompt)
+            attr_mod = run_attribution(model, modified_prompt)
 
             method_dir = experiment_dir / prompt_id / method
             save_attribution(attr_base, method_dir / "base.json")
             save_attribution(attr_mod, method_dir / "modified.json")
 
-            base_html = attr_base.show(return_html=True, do_aggregation=True)
-            mod_html = attr_mod.show(return_html=True, do_aggregation=True)
+            base_html = attr_base.show(display=False, return_html=True, do_aggregation=True)
+            mod_html = attr_mod.show(display=False, return_html=True, do_aggregation=True)
 
             wandb.log(
                 {
