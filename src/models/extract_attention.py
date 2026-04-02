@@ -1,10 +1,13 @@
+import os
+
 import torch
 from loguru import logger
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 
 def load_model_and_tokenizer(model_name: str, quantization: str = "bf16", device: str = "mps") -> tuple:
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    token = os.environ.get("HF_TOKEN")
+    tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
 
     model_kwargs = {
         "output_attentions": True,
@@ -24,12 +27,12 @@ def load_model_and_tokenizer(model_name: str, quantization: str = "bf16", device
         )
         model_kwargs["device_map"] = device
     elif quantization == "bf16":
-        model_kwargs["torch_dtype"] = torch.bfloat16
+        model_kwargs["dtype"] = torch.bfloat16
         model_kwargs["device_map"] = device
     else:
         model_kwargs["device_map"] = device
 
-    model = AutoModelForCausalLM.from_pretrained(model_name, **model_kwargs)
+    model = AutoModelForCausalLM.from_pretrained(model_name, token=token, **model_kwargs)
     return model, tokenizer
 
 
