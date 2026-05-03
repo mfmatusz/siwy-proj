@@ -1,4 +1,8 @@
+import sys
+
 from invoke import task
+
+_python = sys.executable
 
 
 @task
@@ -18,17 +22,17 @@ def test(c):
 
 @task
 def run(c, config_overrides=""):
-    c.run(f"python scripts/run_experiment.py {config_overrides}")
+    c.run(f"{_python} scripts/run_experiment.py {config_overrides}")
 
 
 @task
 def run_inseq(c, config_overrides=""):
-    c.run(f"python scripts/run_inseq.py {config_overrides}")
+    c.run(f"{_python} scripts/run_inseq.py {config_overrides}")
 
 
 @task
 def report(c, config_overrides=""):
-    c.run(f"python scripts/generate_report.py {config_overrides}")
+    c.run(f"{_python} scripts/generate_report.py {config_overrides}")
 
 
 @task(pre=[lint, test])
