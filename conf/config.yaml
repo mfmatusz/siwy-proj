@@ -7,7 +7,6 @@ seed: 42
 paths:
   data_raw: "data/raw"
   data_processed: "data/processed"
-  notebooks: "notebooks"
   outputs: "outputs"
 
 model:
