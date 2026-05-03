@@ -3,7 +3,8 @@ from pathlib import Path
 import torch
 
 from src.config.model import GLOBAL_LAYER_INDICES, GQA_GROUP_SIZE, NUM_LAYERS
-from src.visualization.visualize import plot_attention_heatmap
+from src.metrics import pairwise_attention_diff
+from src.visualization.visualize import plot_attention_heatmap, plot_diff_heatmap
 
 
 def gqa_aware_head_pooling(attention: torch.Tensor, group_size: int = GQA_GROUP_SIZE) -> torch.Tensor:
@@ -93,5 +94,19 @@ def process_prompt_pair(
         plot_attention_heatmap(attention, tokens, str(path), title=title)
         key = f"heatmaps/{prompt_id}/{filename.replace('.png', '')}"
         saved_paths[key] = path
+
+    diff_configs = [
+        (pairwise_attention_diff(local_base, local_mod), "local_diff.png", f"Local Diff (mod−base): {prompt_id}"),
+        (pairwise_attention_diff(global_base, global_mod), "global_diff.png", f"Global Diff (mod−base): {prompt_id}"),
+        (
+            pairwise_attention_diff(overall_base, overall_mod),
+            "overall_diff.png",
+            f"Overall Diff (mod−base): {prompt_id}",
+        ),
+    ]
+    for diff_matrix, filename, title in diff_configs:
+        path = heatmaps_dir / filename
+        plot_diff_heatmap(diff_matrix, tokens_base, tokens_mod, str(path), title=title)
+        saved_paths[f"heatmaps/{prompt_id}/{filename.replace('.png', '')}"] = path
 
     return saved_paths
