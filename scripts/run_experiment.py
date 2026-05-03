@@ -1,9 +1,10 @@
-from pathlib import Path
-
 import dotenv
-import hydra
 
 dotenv.load_dotenv()
+
+from pathlib import Path
+
+import hydra
 import torch
 from hydra.utils import get_original_cwd
 from loguru import logger
@@ -11,12 +12,14 @@ from omegaconf import DictConfig, OmegaConf
 
 import wandb
 from src.data.dataset import load_prompts
-from src.models.attention_utils import process_prompt_pair
+from src.metrics import attention_entropy, pairwise_attention_diff, sparsity_ratio
+from src.models.attention_utils import aggregate_attention_by_type, process_prompt_pair
 from src.models.extract_attention import load_model_and_tokenizer, run_inference_and_extract_attention
 
 
 @hydra.main(version_base="1.3", config_path="../conf", config_name="config")
 def main(cfg: DictConfig):
+    torch.manual_seed(cfg.seed)
     logger.info(f"Starting experiment: {cfg.experiment_name}")
     logger.info(f"Model: {cfg.model.name}, quantization: {cfg.model.quantization}")
 
@@ -70,6 +73,21 @@ def main(cfg: DictConfig):
         tokens_mod = tokenizer.convert_ids_to_tokens(tok_mod[0])
 
         saved_paths = process_prompt_pair(prompt_id, attrs_base, attrs_mod, tokens_base, tokens_mod, experiment_dir)
+
+        _, _, overall_base = aggregate_attention_by_type(attrs_base)
+        _, _, overall_mod = aggregate_attention_by_type(attrs_mod)
+        diff = pairwise_attention_diff(overall_base, overall_mod)
+
+        wandb.log(
+            {
+                f"metrics/{prompt_id}/entropy_base": attention_entropy(overall_base).mean().item(),
+                f"metrics/{prompt_id}/entropy_mod": attention_entropy(overall_mod).mean().item(),
+                f"metrics/{prompt_id}/sparsity_base": sparsity_ratio(overall_base),
+                f"metrics/{prompt_id}/sparsity_mod": sparsity_ratio(overall_mod),
+                f"metrics/{prompt_id}/diff_l1": diff.abs().mean().item(),
+                f"metrics/{prompt_id}/diff_l2": diff.pow(2).mean().sqrt().item(),
+            }
+        )
         wandb.log({key: wandb.Image(str(path)) for key, path in saved_paths.items()})
 
         if torch.backends.mps.is_available():

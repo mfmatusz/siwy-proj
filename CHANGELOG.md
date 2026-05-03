@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Sections: Added, Changed, Removed, Fixed.
 
+## 03.05.2026
+
+### Added
+
+- `src/metrics/__init__.py` — moduł metryk ilościowych: `attention_entropy`, `sparsity_ratio`, `pairwise_attention_diff`, `mean_attention_by_token_position` (pure functions, bez I/O, bez GPU)
+- `src/visualization/visualize.py` — `plot_diff_heatmap()` z colormap RdBu_r, zakres ±max_abs
+- Diff heatmapy (modified − base) per para promptów: `local_diff`, `global_diff`, `overall_diff`
+- Logowanie metryk ilościowych do W&B: entropia, sparsity, normy L1/L2 diffy
+- `tests/test_dataset.py`, `tests/test_attention_utils.py`, `tests/test_visualize.py`, `tests/test_metrics.py` — 37 testów pytest działających bez GPU i bez połączenia sieciowego
+- `Makefile` — skróty do częstych operacji (install, lint, format, test, check, run, run-inseq, report); obsługuje `ARGS=` dla Hydra overrides
+- `src/config/model.py` — funkcja `initialize_from_pretrained()` do opcjonalnego pobierania stałych modelu z HF API
+
+### Changed
+
+- `src/config/model.py` — usunięto wywołanie `AutoConfig.from_pretrained()` na poziomie modułu (było side effectem każdego importu); stałe `GLOBAL_LAYER_INDICES`, `NUM_LAYERS`, `GQA_GROUP_SIZE` są teraz hardkodowanymi defaults dla Gemma 3 4B IT
+- `scripts/run_experiment.py` — `dotenv.load_dotenv()` przeniesiony przed pozostałe importy; dodano `torch.manual_seed(cfg.seed)`; dodano logowanie metryk do W&B
+- `scripts/run_inseq.py` — `dotenv.load_dotenv()` przeniesiony przed pozostałe importy; dodano `torch.manual_seed(cfg.seed)`
+- `tasks.py` — usunięto `PYTHONPATH=.` z tasków `run`, `run_inseq`, `report` (nie działa na Windows; `src` jest instalowane przez hatchling)
+- `conf/config.yaml` — usunięto martwy klucz `paths.notebooks`
+- `pyproject.toml` — dodano `per-file-ignores` dla `scripts/*.py` (E402) w konfiguracji ruff
+- Komentarze i docstringi w nowych plikach standaryzowane do języka angielskiego
+
 ## 31.03.2026
 
 ### Added

@@ -1,9 +1,10 @@
-from pathlib import Path
-
 import dotenv
-import hydra
 
 dotenv.load_dotenv()
+
+from pathlib import Path
+
+import hydra
 import torch
 from hydra.utils import get_original_cwd
 from loguru import logger
@@ -18,6 +19,7 @@ ATTRIBUTION_METHODS = ["attention"]
 
 @hydra.main(version_base="1.3", config_path="../conf", config_name="config")
 def main(cfg: DictConfig):
+    torch.manual_seed(cfg.seed)
     logger.info(f"Starting Inseq attribution: {cfg.experiment_name}")
 
     if cfg.wandb.get("enabled", True):
