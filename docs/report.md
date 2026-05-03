@@ -120,7 +120,7 @@ Analiza jest jakościowa i ilościowa - obok liczb ważne są obserwacje i komen
 | Środowisko              | `venv` + `pyproject.toml`                           |
 | Linting / formatowanie  | `ruff`                                              |
 | Testy                   | `pytest`                                            |
-| Uruchamianie            | `hydra` + `invoke`                                  |
+| Uruchamianie            | `hydra` + `invoke` + `Makefile`                     |
 | Dokumentacja            | `README.md` + `USAGE.md`                            |
 | Wersjonowanie           | Git + Conventional Commits                          |
 | Śledzenie eksperymentów | W&B + pliki `.csv` z wynikami                       |
@@ -157,11 +157,17 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 ### Deliverables
 
 - [x] Design Proposal (ten dokument)
-- [ ] Dataset promptów
-- [ ] Skrypt do ekstrakcji i wizualizacji attention
-- [ ] Raport z obserwacji
-- [ ] Dokumentacja
-- [ ] Testy
+- [x] Dataset promptów (10 par, 5 kategorii: style, tone, formality, framing, reformulation)
+- [x] Skrypt do ekstrakcji i wizualizacji attention (`scripts/run_experiment.py`)
+- [x] Moduł metryk ilościowych (`src/metrics/`: entropia, sparsity, diff, mean per pozycja)
+- [x] Diff heatmapy (modified − base) z diverging colormap
+- [x] Logowanie metryk do W&B per para promptów
+- [x] Atrybucja Inseq attention (`scripts/run_inseq.py`)
+- [x] Raport HTML (`scripts/generate_report.py`)
+- [x] Testy pytest — 37 testów jednostkowych bez GPU/internetu
+- [x] Dokumentacja (`README.md`, `USAGE.md`)
+- [x] Makefile do łatwiejszego korzystania z projektu
+- [ ] Raport z obserwacji i wniosków
 - [ ] Filmik demo (3–5 min)
 - [ ] Prezentacja finalna
 
