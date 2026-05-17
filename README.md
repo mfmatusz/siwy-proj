@@ -10,7 +10,7 @@ Małe zmiany w treści promptu potrafią znacząco zmienić odpowiedź modelu j�
 
 Używamy modelu Gemma 3 4B i zestawu ręcznie przygotowanych **par promptów** — każda para to ten sam sens, ale inaczej sformułowane zapytanie (np. „Wyjaśnij grawitację" vs. „Wyjaśnij grawitację krótko i prosto"). Dla każdej pary ekstrahujemy wagi attention ze wszystkich 34 warstw modelu i analizujemy, czy i jak zmienia się rozkład uwagi modelu po modyfikacji promptu.
 
-Pary promptów pokrywają pięć kategorii zmian: **styl**, **ton/rola**, **formalność**, **framing** i **reformulacja**. Warstwy analizowane są osobno jako lokalne (sliding window, 1024 tokeny) i globalne (pełny kontekst), co wynika bezpośrednio z architektury Gemma 3. Analizę uzupełnia atrybucja attention (atrybucja gradientowa z przczyn ogranicze sprzętowych jest zbyt czasowożerna) via Inseq (saliency, integrated gradients).
+Pary promptów pokrywają pięć kategorii zmian: **styl**, **ton/rola**, **formalność**, **framing** i **reformulacja** — łącznie 25 par (5 per kategoria). Warstwy analizowane są osobno jako lokalne (sliding window, 1024 tokeny) i globalne (pełny kontekst), co wynika bezpośrednio z architektury Gemma 3. Analizę uzupełnia atrybucja attention (atrybucja gradientowa z przczyn ogranicze sprzętowych jest zbyt czasowożerna) via Inseq (saliency, integrated gradients).
 
 Projekt łączy budowę reprodukowalnego narzędzia analitycznego z kontrolowanym eksperymentem — wyniki mają charakter zarówno ilościowy (entropia attention, sparsity, średnie wagi per kategoria tokenu) jak i jakościowy (wizualizacje heatmap, diff między parami).
 
@@ -43,21 +43,33 @@ data/processed/     wyniki eksperymentów (tensory, heatmapy, raporty)
 docs/               design proposal, analiza literatury, TODO
 scripts/            entry pointy (run_experiment, run_inseq, generate_report)
 src/
-  config/           stałe modelu (warstwy, indeksy GQA)
-  data/             ładowanie datasetu
+  config/           stałe modelu (warstwy, indeksy GQA), walidacja konfiguracji
+  data/             ładowanie datasetu, kategoryzacja tokenów
+  metrics/          metryki ilościowe (entropia, sparsity, diff, mean per kategoria)
   models/           ekstrakcja attention, agregacja per-layer
   attribution/      analiza Inseq
-  visualization/    heatmapy, raport HTML
-tests/              testy pytest
+  visualization/    heatmapy, diff heatmapy, bar charty, raport HTML
+tests/              testy pytest (71 testów, bez GPU/internetu)
 ```
 
 ## Narzędzia deweloperskie
 
+Przez `make` (zalecane):
+
 ```bash
-uv run invoke lint    # linter (ruff)
-uv run invoke format  # formatowanie (ruff)
-uv run invoke test    # testy (pytest)
-uv run invoke check   # lint + testy
+make lint      # linter (ruff)
+make format    # formatowanie (ruff)
+make test      # testy (pytest)
+make check     # lint + testy
+make clean     # usuń .venv (np. przed reinstalacją na innym systemie)
+```
+
+Lub przez `invoke`:
+
+```bash
+uv run invoke lint
+uv run invoke test
+uv run invoke check
 ```
 
 ## Narzędzia i technologie

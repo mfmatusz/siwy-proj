@@ -157,14 +157,16 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 ### Deliverables
 
 - [x] Design Proposal (ten dokument)
-- [x] Dataset promptów (10 par, 5 kategorii: style, tone, formality, framing, reformulation)
+- [x] Dataset promptów (25 par, 5 kategorii × 5 par: style, tone, formality, framing, reformulation)
+- [x] Adnotacje kategorii tokenów (`data/raw/token_categories.json`: instrukcja / treść / funkcyjny)
 - [x] Skrypt do ekstrakcji i wizualizacji attention (`scripts/run_experiment.py`)
-- [x] Moduł metryk ilościowych (`src/metrics/`: entropia, sparsity, diff, mean per pozycja)
+- [x] Moduł metryk ilościowych (`src/metrics/`: entropia, sparsity, diff, mean per pozycja, mean per kategorię tokenu)
 - [x] Diff heatmapy (modified − base) z diverging colormap
-- [x] Logowanie metryk do W&B per para promptów
+- [x] Wykresy zbiorcze bar chart (base vs modified per kategoria promptów i tokenu)
+- [x] Logowanie metryk i wykresów zbiorczych do W&B per para promptów
 - [x] Atrybucja Inseq attention (`scripts/run_inseq.py`)
 - [x] Raport HTML (`scripts/generate_report.py`)
-- [x] Testy pytest — 37 testów jednostkowych bez GPU/internetu
+- [x] Testy pytest — 71 testów (jednostkowe + integracyjne), bez GPU/internetu
 - [x] Dokumentacja (`README.md`, `USAGE.md`)
 - [x] Makefile do łatwiejszego korzystania z projektu
 - [ ] Raport z obserwacji i wniosków

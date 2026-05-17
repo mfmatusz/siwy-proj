@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Sections: Added, Changed, Removed, Fixed.
 
+## 17.05.2026
+
+### Added
+
+- `data/raw/prompts.json` — dataset rozbudowany z 10 do 25 par (5 per kategoria): style, tone, formality, framing, reformulation
+- `data/raw/token_categories.json` — ręczne adnotacje słów-kluczy per para promptów (instrukcja / treść) do kategoryzacji tokenów
+- `src/data/token_labels.py` — `load_token_categories()` i `categorize_tokens()`: strip prefixu ▁ SentencePiece, dopasowanie case-insensitive
+- `src/metrics/__init__.py` — `mean_attention_by_category()`: średnia waga attention per kategorię tokenu (instrukcja / treść / funkcyjny)
+- `src/visualization/visualize.py` — `plot_category_attention_barchart()`: grouped bar chart (base vs modified) per kategoria promptów, osobno dla tokenów instrukcji i treści
+- `src/config/model.py` — `validate_model_config()`: walidacja stałych modelu przy starcie aplikacji (fail-fast)
+- `tests/test_integration.py` — 4 testy integracyjne pipeline'u ekstrakcji attention (process_prompt_pair → aggregate → metrics), bez GPU i sieci
+- `tests/test_token_labels.py` — 11 testów dla `load_token_categories` i `categorize_tokens`
+- `tests/test_model_config.py` — 9 testów dla `validate_model_config`
+- `.python-version` — pin Python 3.11 dla projektu (uv respektuje przy tworzeniu venv)
+- `Makefile` — target `clean` (usuwa `.venv`); sekcja help aktualizacja
+
+### Changed
+
+- `conf/config.yaml` — stałe modelu (`num_layers: 34`, `gqa_group_size: 2`, `global_layer_indices: [5,11,17,23,29]`) przeniesione z kodu do sekcji `model:`
+- `src/config/model.py` — stałe odczytywane z `config.yaml` (z fallbackiem do defaults); wywołanie sieci usunięte z poziomu modułu pozostaje zrealizowane
+- `scripts/run_experiment.py` — `validate_model_config(cfg)` przy starcie; integracja token categorization, `mean_attention_by_category` i bar chart; logowanie wykresu zbiorczego do W&B
+- `scripts/run_inseq.py` — `validate_model_config(cfg)` przy starcie
+- `tests/test_metrics.py` — dodano `TestMeanAttentionByCategory` (6 testów); łącznie 24 testy
+- `tests/test_visualize.py` — dodano `TestPlotCategoryAttentionBarchart` (4 testy); łącznie 8 testów
+- `Makefile` — `uv run pytest` → `uv run python -m pytest` (cross-platform); `uv sync --extra dev` przed każdym uruchomieniem testów
+- `pyproject.toml` — `[tool.uv] link-mode = "copy"` (kompatybilność z WSL / cross-filesystem)
+
+Łącznie: 71 testów (było 37).
+
 ## 03.05.2026
 
 ### Added

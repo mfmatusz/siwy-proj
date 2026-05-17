@@ -80,6 +80,9 @@ model:
   name: "google/gemma-3-4b-it"   # model instruction-tuned
   quantization: "bf16"            # bf16 / nf4
   device: "mps"                   # mps / cuda / cpu
+  num_layers: 34                  # liczba warstw transformer
+  gqa_group_size: 2               # stosunek query heads do KV heads (GQA)
+  global_layer_indices: [5, 11, 17, 23, 29]  # warstwy z pełnym (globalnym) attention
 
 wandb:
   project: "siwy-xai-llm"
@@ -190,26 +193,30 @@ uv run invoke report --config-overrides="experiment_name=moj_eksperyment"
 
 ## 7. Narzędzia deweloperskie
 
-Wszystkie komendy deweloperskie obsługiwane są przez `invoke`:
+### Przez `make` (zalecane — działa na Linux, macOS i Windows)
 
 ```bash
-# Sprawdzenie kodu (linter ruff)
+make test          # testy (instaluje dev-deps automatycznie)
+make lint          # linter (ruff)
+make format        # formatowanie (ruff)
+make check         # lint + testy
+make install-dev   # instalacja z dev-deps (pytest, ruff)
+make clean         # usuń .venv (np. przed reinstalacją na innym systemie)
+```
+
+### Przez `invoke`
+
+```bash
 uv run invoke lint
-
-# Formatowanie kodu (ruff format)
 uv run invoke format
-
-# Uruchomienie testów
 uv run invoke test
-
-# Pełne sprawdzenie: lint + testy
 uv run invoke check
 ```
 
 ### Bezpośrednie wywołanie pytest
 
 ```bash
-uv run pytest tests/ -v
+uv run python -m pytest tests/ -v
 ```
 
 ---
@@ -236,12 +243,24 @@ data/processed/<experiment_name>/
         ├── overall_base.png
         ├── local_mod.png
         ├── global_mod.png
-        └── overall_mod.png
+        ├── overall_mod.png
+        ├── local_diff.png        # diff: modified − base (local layers)
+        ├── global_diff.png       # diff: modified − base (global layers)
+        └── overall_diff.png      # diff: modified − base (all layers)
 ```
 
-Dane surowe (pary promptów) znajdują się w `data/raw/prompts.json` i są **tylko do odczytu** — nie należy ich modyfikować.
+Na poziomie eksperymentu (nie per para) zapisywany jest dodatkowo:
 
-Heatmapy są równolegle logowane do [Weights & Biases](https://wandb.ai/) jako obrazy. Logowanie metryk ilościowych (entropia, sparsity, średnie wagi per kategoria tokenów) jest jeszcze w trakcie implementacji — patrz sekcja 10.
+```
+data/processed/<experiment_name>/
+└── category_attention_barchart.png   # bar chart mean attention per kategoria tokenów
+```
+
+Dane surowe znajdują się w `data/raw/` i są **tylko do odczytu**:
+- `prompts.json` — 25 par promptów (5 kategorii × 5 par)
+- `token_categories.json` — ręczne adnotacje słów-kluczy per para (instrukcja / treść)
+
+Heatmapy, metryki ilościowe (entropia, sparsity, L1/L2 diff) i wykres zbiorczy są równolegle logowane do [Weights & Biases](https://wandb.ai/).
 
 Dostęp do dashboardu W&B wymaga konta i zalogowania:
 
@@ -277,14 +296,14 @@ source .venv/bin/activate   # Linux/macOS
 
 ---
 
-## 10. Stan implementacji — co jeszcze nie gotowe
+## 10. Stan implementacji
 
-Poniższe elementy są zaplanowane, ale jeszcze niezaimplementowane. Dokumentacja opisuje ich docelowe działanie.
-
-| Element                                     | Status      | Uwagi                                                                                                                                           |
-|---------------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `tests/` — testy jednostkowe i integracyjne | ⏳ W trakcie | Folder istnieje, testy do napisania (`pytest` zwróci "no tests found")                                                                          |
-| `src/metrics/` — moduł metryk               | ⏳ W trakcie | Funkcje `attention_entropy`, `sparsity_ratio`, `pairwise_attention_diff`, `mean_attention_by_category` zaplanowane, jeszcze niezaimplementowane |
-| Logowanie metryk do W&B                     | ⏳ W trakcie | W&B działa i loguje heatmapy jako obrazy; logowanie metryk ilościowych (entropia, sparsity) czeka na `src/metrics/`                             |
-| Diff heatmapy i wykresy zbiorcze            | ⏳ W trakcie | Wizualizacja `modified - base` i bar charty per kategoria tokenów zaplanowane                                                                   |
-| Ręczna kategoryzacja tokenów                | ⏳ W trakcie | Wymagana do `mean_attention_by_category`; kategorie: instrukcja / treść / funkcyjny                                                             |
+| Element                                       | Status   | Uwagi                                                                                    |
+|-----------------------------------------------|----------|------------------------------------------------------------------------------------------|
+| `tests/` — testy jednostkowe i integracyjne   | ✅ Gotowe | 71 testów, działają bez GPU i bez dostępu do sieci                                       |
+| `src/metrics/` — moduł metryk                 | ✅ Gotowe | `attention_entropy`, `sparsity_ratio`, `pairwise_attention_diff`, `mean_attention_by_category` |
+| Logowanie metryk do W&B                       | ✅ Gotowe | Metryki ilościowe, heatmapy i wykres zbiorczy logowane per para promptów                 |
+| Diff heatmapy                                 | ✅ Gotowe | `local_diff`, `global_diff`, `overall_diff` (RdBu_r, ±max_abs)                          |
+| Wykresy zbiorcze bar chart                    | ✅ Gotowe | Base vs modified per kategoria promptów i tokenów; logowane do W&B                       |
+| Ręczna kategoryzacja tokenów                  | ✅ Gotowe | `data/raw/token_categories.json`; `src/data/token_labels.py` (`categorize_tokens`)       |
+| Gradient attribution (saliency, int. grads)   | ❌ Brak  | Wymaga GPU z CUDA; na MPS zbyt wolne (~40 min/prompt); poza zakresem projektu             |
