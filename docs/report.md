@@ -121,7 +121,7 @@ Analiza jest jakościowa i ilościowa - obok liczb ważne są obserwacje i komen
 | Linting / formatowanie  | `ruff`                                              |
 | Testy                   | `pytest`                                            |
 | Uruchamianie            | `hydra` + `invoke` + `Makefile`                     |
-| Dokumentacja            | `README.md` + `USAGE.md`                            |
+| Dokumentacja            | `README.md` + `docs/manual.md`                      |
 | Wersjonowanie           | Git + Conventional Commits                          |
 | Śledzenie eksperymentów | W&B + pliki `.csv` z wynikami                       |
 
@@ -167,7 +167,7 @@ Wymagany GPU z min. ~8 GB VRAM (NF4 + KV cache przy 32k) lub ~13 GB (BF16 + KV c
 - [x] Atrybucja Inseq attention (`scripts/run_inseq.py`)
 - [x] Raport HTML (`scripts/generate_report.py`)
 - [x] Testy pytest — 71 testów (jednostkowe + integracyjne), bez GPU/internetu
-- [x] Dokumentacja (`README.md`, `USAGE.md`)
+- [x] Dokumentacja (`README.md`, `docs/manual.md`)
 - [x] Makefile do łatwiejszego korzystania z projektu
 - [ ] Raport z obserwacji i wniosków
 - [ ] Filmik demo (3–5 min)

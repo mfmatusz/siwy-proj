@@ -22,7 +22,7 @@
 ## Dokumentacja
 
 - [x] Rozbudować `README.md` — struktura repo
-- [x] Edytować `USAGE.md` — instrukcja użytkowania krok po kroku
+- [x] Edytować `docs/manual.md` — instrukcja użytkowania krok po kroku
 - [ ] Przygotować system notatek do weekly standup (regulamin §1 pkt 7) — np. `docs/weekly/` lub GitHub Issues
 
 ## Analiza literatury (design-proposal)

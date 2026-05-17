@@ -21,7 +21,7 @@ Projekt łączy budowę reprodukowalnego narzędzia analitycznego z kontrolowany
 - [`uv`](https://docs.astral.sh/uv/) — menadżer pakietów
 
 > Model Gemma 3 jest bramkowany — wymaga akceptacji licencji i tokenu Hugging Face.
-> Szczegóły konfiguracji środowiska → **[USAGE.md](USAGE.md)**
+> Szczegóły konfiguracji środowiska → **[docs/manual.md](docs/manual.md)**
 
 ## Szybki start
 
@@ -32,7 +32,7 @@ uv sync
 uv run invoke run
 ```
 
-> Szczegółowa instrukcja konfiguracji, uruchamiania i rozwiązywania problemów → **[USAGE.md](USAGE.md)**
+> Szczegółowa instrukcja konfiguracji, uruchamiania i rozwiązywania problemów → **[docs/manual.md](docs/manual.md)**
 
 ## Struktura projektu
 
