@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help install install-dev lint format test check run run-inseq report
+.PHONY: help install install-dev lint format test check run run-inseq report clean
 
 help:
 	@echo "Usage: make <target>"
@@ -8,6 +8,7 @@ help:
 	@echo "Setup"
 	@echo "  install      Install project dependencies"
 	@echo "  install-dev  Install project + dev dependencies (pytest, ruff)"
+	@echo "  clean        Remove .venv (use before reinstalling on a new platform)"
 	@echo ""
 	@echo "Development"
 	@echo "  lint         Run ruff linter"
@@ -22,6 +23,9 @@ help:
 	@echo ""
 	@echo "Pass Hydra overrides via ARGS, e.g.:"
 	@echo "  make run ARGS='model.device=cuda experiment_name=my_run'"
+
+clean:
+	rm -rf .venv
 
 install:
 	uv sync
