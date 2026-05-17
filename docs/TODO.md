@@ -29,11 +29,11 @@
 
 ## Analiza literatury (design-proposal)
 
-- [ ] Rozbudować tabelę literatury w miarę rozwoju projektu
+- [X] Rozbudować tabelę literatury w miarę rozwoju projektu
 
 ## Design-proposal
 
-- [ ] Opisać planowaną funkcjonalność programu (co dostaje użytkownik: CLI? skrypt? jakie komendy?)
+- [X] Opisać planowaną funkcjonalność programu (co dostaje użytkownik: CLI? skrypt? jakie komendy?)
 
 ## Moduł metryk (src/metrics/)
 
