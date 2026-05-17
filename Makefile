@@ -36,6 +36,7 @@ format:
 	uv run ruff format src/ scripts/ tests/
 
 test:
+	uv sync --extra dev
 	uv run python -m pytest tests/ -v
 
 check: lint test
