@@ -2,7 +2,7 @@
 
 ## Dane
 
-- [ ] Rozbudować dataset do pełnego rozmiaru (więcej par per kategoria)
+- [x] Rozbudować dataset do pełnego rozmiaru (więcej par per kategoria)
 - [x] Zapewnić niemutowalność oryginalnych danych — dane surowe w `data/raw/` tylko do odczytu, wyniki w `data/processed/` (regulamin §2)
 
 ## Konfiguracja
