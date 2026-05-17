@@ -7,7 +7,7 @@
 
 ## Konfiguracja
 
-- [ ] Przenieść stałe modelu (NUM_LAYERS, GLOBAL_LAYER_INDICES, GQA_GROUP_SIZE) do config.yaml z walidacją przy starcie
+- [x] Przenieść stałe modelu (NUM_LAYERS, GLOBAL_LAYER_INDICES, GQA_GROUP_SIZE) do config.yaml z walidacją przy starcie
 
 ## Śledzenie eksperymentów
 

@@ -11,6 +11,7 @@ from loguru import logger
 from omegaconf import DictConfig, OmegaConf
 
 import wandb
+from src.config.model import validate_model_config
 from src.data.dataset import load_prompts
 from src.metrics import attention_entropy, pairwise_attention_diff, sparsity_ratio
 from src.models.attention_utils import aggregate_attention_by_type, process_prompt_pair
@@ -20,6 +21,7 @@ from src.models.extract_attention import load_model_and_tokenizer, run_inference
 @hydra.main(version_base="1.3", config_path="../conf", config_name="config")
 def main(cfg: DictConfig):
     torch.manual_seed(cfg.seed)
+    validate_model_config(cfg)
     logger.info(f"Starting experiment: {cfg.experiment_name}")
     logger.info(f"Model: {cfg.model.name}, quantization: {cfg.model.quantization}")
 
