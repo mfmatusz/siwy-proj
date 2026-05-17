@@ -2,6 +2,7 @@ import torch
 
 from src.metrics import (
     attention_entropy,
+    mean_attention_by_category,
     mean_attention_by_token_position,
     pairwise_attention_diff,
     sparsity_ratio,
@@ -107,3 +108,49 @@ class TestMeanAttentionByTokenPosition:
         attn = torch.rand(5, 5)
         result = mean_attention_by_token_position(attn)
         assert torch.allclose(result, attn.float().mean(dim=0), atol=1e-6)
+
+
+class TestMeanAttentionByCategory:
+    def test_output_has_all_category_keys(self):
+        attn = uniform_attention(4)
+        cats = ["instruction", "content", "functional", "functional"]
+        result = mean_attention_by_category(attn, cats)
+        assert set(result.keys()) == {"instruction", "content", "functional"}
+
+    def test_empty_category_returns_zero(self):
+        attn = uniform_attention(4)
+        cats = ["functional", "functional", "functional", "functional"]
+        result = mean_attention_by_category(attn, cats)
+        assert result["instruction"] == 0.0
+        assert result["content"] == 0.0
+
+    def test_all_same_category_equals_overall_mean(self):
+        seq_len = 4
+        attn = uniform_attention(seq_len)
+        cats = ["instruction"] * seq_len
+        result = mean_attention_by_category(attn, cats)
+        assert abs(result["instruction"] - 1.0 / seq_len) < 1e-6
+
+    def test_values_are_floats(self):
+        attn = torch.rand(5, 5)
+        attn = attn / attn.sum(dim=-1, keepdim=True)
+        cats = ["instruction", "content", "functional", "functional", "instruction"]
+        result = mean_attention_by_category(attn, cats)
+        for v in result.values():
+            assert isinstance(v, float)
+
+    def test_single_token_per_category(self):
+        attn = uniform_attention(3)
+        cats = ["instruction", "content", "functional"]
+        result = mean_attention_by_category(attn, cats)
+        expected = 1.0 / 3
+        for v in result.values():
+            assert abs(v - expected) < 1e-6
+
+    def test_nonnegative_values(self):
+        attn = torch.rand(6, 6)
+        attn = attn / attn.sum(dim=-1, keepdim=True)
+        cats = ["instruction", "content", "functional", "instruction", "content", "functional"]
+        result = mean_attention_by_category(attn, cats)
+        for v in result.values():
+            assert v >= 0.0

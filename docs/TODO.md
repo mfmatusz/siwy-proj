@@ -42,7 +42,7 @@
   - [x] `sparsity_ratio` — procent near-zero wag attention
 - [x] Zintegrować metryki z pipeline'em (`run_experiment.py`) i logowaniem do W&B
 - [x] Ręczna kategoryzacja tokenów jako instrukcja/treść/funkcyjny — potrzebne do `mean_attention_by_category`
-- [ ] `mean_attention_by_category` (po ukończeniu kategoryzacji tokenów)
+- [x] `mean_attention_by_category` (po ukończeniu kategoryzacji tokenów)
 
 ## Analiza i wizualizacje
 
