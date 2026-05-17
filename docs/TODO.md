@@ -41,7 +41,7 @@
   - [x] `pairwise_attention_diff` — różnica rozkładów attention między parami promptów (base vs modified)
   - [x] `sparsity_ratio` — procent near-zero wag attention
 - [x] Zintegrować metryki z pipeline'em (`run_experiment.py`) i logowaniem do W&B
-- [ ] Ręczna kategoryzacja tokenów jako instrukcja/treść/funkcyjny — potrzebne do `mean_attention_by_category`
+- [x] Ręczna kategoryzacja tokenów jako instrukcja/treść/funkcyjny — potrzebne do `mean_attention_by_category`
 - [ ] `mean_attention_by_category` (po ukończeniu kategoryzacji tokenów)
 
 ## Analiza i wizualizacje
