@@ -38,3 +38,29 @@ def pairwise_attention_diff(base: torch.Tensor, modified: torch.Tensor) -> torch
 def mean_attention_by_token_position(attention_matrix: torch.Tensor) -> torch.Tensor:
     """Column-wise mean — how much attention each token position attracts. Returns tensor (seq_len,)."""
     return attention_matrix.float().mean(dim=0)
+
+
+def mean_attention_by_category(
+    attention_matrix: torch.Tensor,
+    token_categories: list[str],
+) -> dict[str, float]:
+    """Mean attention attracted per token category (column-wise mean grouped by category).
+
+    Args:
+        attention_matrix: (seq_len, seq_len) attention weights.
+        token_categories: per-position labels, each one of
+            "instruction", "content", or "functional".
+
+    Returns:
+        Dict mapping category name → mean attention weight.
+        Categories with no assigned tokens return 0.0.
+    """
+    col_means = mean_attention_by_token_position(attention_matrix)
+    result: dict[str, float] = {}
+    for cat in ("instruction", "content", "functional"):
+        indices = [i for i, c in enumerate(token_categories) if c == cat]
+        if indices:
+            result[cat] = col_means[torch.tensor(indices)].mean().item()
+        else:
+            result[cat] = 0.0
+    return result

@@ -1,0 +1,102 @@
+{
+  "style_01": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["grawitację"]
+  },
+  "style_02": {
+    "instruction_keywords": ["opisz"],
+    "content_keywords": ["burze"]
+  },
+  "style_03": {
+    "instruction_keywords": ["opowiedz"],
+    "content_keywords": ["fotosyntezy"]
+  },
+  "style_04": {
+    "instruction_keywords": ["wytłumacz"],
+    "content_keywords": ["serce"]
+  },
+  "style_05": {
+    "instruction_keywords": ["opisz"],
+    "content_keywords": ["ewolucję"]
+  },
+  "tone_01": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["inflacja", "inflację"]
+  },
+  "tone_02": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["szczepionka", "szczepionkę"]
+  },
+  "tone_03": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["karma", "karmę"]
+  },
+  "tone_04": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["popytu", "podaży"]
+  },
+  "tone_05": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["dna"]
+  },
+  "formality_01": {
+    "instruction_keywords": ["wyjaśnienie", "proszę"],
+    "content_keywords": ["internet"]
+  },
+  "formality_02": {
+    "instruction_keywords": ["omówienie", "proszę"],
+    "content_keywords": ["czarnej", "dziury", "czarna", "dziura"]
+  },
+  "formality_03": {
+    "instruction_keywords": ["omówienie", "proszę"],
+    "content_keywords": ["gwiazdy", "gwiazda"]
+  },
+  "formality_04": {
+    "instruction_keywords": ["wyjaśnienie", "proszę"],
+    "content_keywords": ["niebo", "rayleigha"]
+  },
+  "formality_05": {
+    "instruction_keywords": ["omówienie", "proszę"],
+    "content_keywords": ["silnik"]
+  },
+  "framing_01": {
+    "instruction_keywords": ["opisz"],
+    "content_keywords": ["fotosyntezę", "fotosynteza"]
+  },
+  "framing_02": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["demokracja", "demokrację"]
+  },
+  "framing_03": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["atom"]
+  },
+  "framing_04": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["komputer"]
+  },
+  "framing_05": {
+    "instruction_keywords": ["wyjaśnij"],
+    "content_keywords": ["inteligencja", "inteligencji", "inteligencję"]
+  },
+  "reformulation_01": {
+    "instruction_keywords": ["powoduje", "pada"],
+    "content_keywords": ["deszcz"]
+  },
+  "reformulation_02": {
+    "instruction_keywords": ["sprawia", "przewodzą"],
+    "content_keywords": ["metale", "prąd", "elektryczność"]
+  },
+  "reformulation_03": {
+    "instruction_keywords": ["powoduje", "dochodzi"],
+    "content_keywords": ["trzęsienia", "ziemi"]
+  },
+  "reformulation_04": {
+    "instruction_keywords": ["powoduje", "czym"],
+    "content_keywords": ["entropia", "termodynamice"]
+  },
+  "reformulation_05": {
+    "instruction_keywords": ["powstaje", "bierze"],
+    "content_keywords": ["tęcza"]
+  }
+}

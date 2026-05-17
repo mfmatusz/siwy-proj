@@ -13,6 +13,9 @@ model:
   name: "google/gemma-3-4b-it"
   quantization: "bf16"
   device: "mps"
+  num_layers: 34
+  gqa_group_size: 2
+  global_layer_indices: [5, 11, 17, 23, 29]
 
 wandb:
   project: "siwy-xai-llm"

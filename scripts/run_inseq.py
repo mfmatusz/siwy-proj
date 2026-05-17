@@ -12,6 +12,7 @@ from omegaconf import DictConfig, OmegaConf
 
 import wandb
 from src.attribution.inseq_analysis import load_inseq_model, run_attribution, save_attribution
+from src.config.model import validate_model_config
 from src.data.dataset import load_prompts
 
 ATTRIBUTION_METHODS = ["attention"]
@@ -20,6 +21,7 @@ ATTRIBUTION_METHODS = ["attention"]
 @hydra.main(version_base="1.3", config_path="../conf", config_name="config")
 def main(cfg: DictConfig):
     torch.manual_seed(cfg.seed)
+    validate_model_config(cfg)
     logger.info(f"Starting Inseq attribution: {cfg.experiment_name}")
 
     if cfg.wandb.get("enabled", True):

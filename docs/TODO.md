@@ -2,12 +2,12 @@
 
 ## Dane
 
-- [ ] Rozbudować dataset do pełnego rozmiaru (więcej par per kategoria)
+- [x] Rozbudować dataset do pełnego rozmiaru (więcej par per kategoria)
 - [x] Zapewnić niemutowalność oryginalnych danych — dane surowe w `data/raw/` tylko do odczytu, wyniki w `data/processed/` (regulamin §2)
 
 ## Konfiguracja
 
-- [ ] Przenieść stałe modelu (NUM_LAYERS, GLOBAL_LAYER_INDICES, GQA_GROUP_SIZE) do config.yaml z walidacją przy starcie
+- [x] Przenieść stałe modelu (NUM_LAYERS, GLOBAL_LAYER_INDICES, GQA_GROUP_SIZE) do config.yaml z walidacją przy starcie
 
 ## Śledzenie eksperymentów
 
@@ -17,7 +17,7 @@
 
 - [x] Napisać testy `pytest` (regulamin §1 pkt 3, 9)
 - [x] Testy jednostkowe: ekstrakcja attention, agregacja GQA, dataset, metryki, wizualizacja
-- [ ] Testy integracyjne: pipeline end-to-end na małym modelu/mock
+- [x] Testy integracyjne: pipeline end-to-end na małym modelu/mock
 
 ## Dokumentacja
 
@@ -41,13 +41,13 @@
   - [x] `pairwise_attention_diff` — różnica rozkładów attention między parami promptów (base vs modified)
   - [x] `sparsity_ratio` — procent near-zero wag attention
 - [x] Zintegrować metryki z pipeline'em (`run_experiment.py`) i logowaniem do W&B
-- [ ] Ręczna kategoryzacja tokenów jako instrukcja/treść/funkcyjny — potrzebne do `mean_attention_by_category`
-- [ ] `mean_attention_by_category` (po ukończeniu kategoryzacji tokenów)
+- [x] Ręczna kategoryzacja tokenów jako instrukcja/treść/funkcyjny — potrzebne do `mean_attention_by_category`
+- [x] `mean_attention_by_category` (po ukończeniu kategoryzacji tokenów)
 
 ## Analiza i wizualizacje
 
 - [x] Diff heatmapy (modified minus base) — wizualizacja co się zmienia między parami
-- [ ] Wykresy zbiorcze: bar chart średniej attention na tokeny instrukcji vs treści per kategoria promptów
+- [x] Wykresy zbiorcze: bar chart średniej attention na tokeny instrukcji vs treści per kategoria promptów
 - [ ] Gradient attribution (saliency, integrated gradients) via Inseq — wymaga GPU z CUDA, na MPS zbyt wolne (>40 min/prompt)
 
 ## Deliverables

@@ -12,6 +12,24 @@
     "modified_prompt": "Opisz jak powstają burze, używając metafor i obrazowych porównań"
   },
   {
+    "id": "style_03",
+    "category": "style",
+    "base_prompt": "Opowiedz o procesie fotosyntezy",
+    "modified_prompt": "Opowiedz o procesie fotosyntezy, wymieniając kolejno każdy etap w punktach"
+  },
+  {
+    "id": "style_04",
+    "category": "style",
+    "base_prompt": "Wytłumacz jak działa serce",
+    "modified_prompt": "Wytłumacz jak działa serce, posługując się analogią do pompy mechanicznej"
+  },
+  {
+    "id": "style_05",
+    "category": "style",
+    "base_prompt": "Opisz ewolucję gatunków",
+    "modified_prompt": "Opisz ewolucję gatunków w formie narracyjnej z konkretnymi przykładami historycznymi"
+  },
+  {
     "id": "tone_01",
     "category": "tone",
     "base_prompt": "Co to jest inflacja?",
@@ -22,6 +40,24 @@
     "category": "tone",
     "base_prompt": "Jak działa szczepionka?",
     "modified_prompt": "Jako lekarz mówiący do pacjenta, wyjaśnij jak działa szczepionka"
+  },
+  {
+    "id": "tone_03",
+    "category": "tone",
+    "base_prompt": "Czym jest karma?",
+    "modified_prompt": "Jako filozof buddyjski, wyjaśnij czym jest karma"
+  },
+  {
+    "id": "tone_04",
+    "category": "tone",
+    "base_prompt": "Jak działa prawo popytu i podaży?",
+    "modified_prompt": "Jako profesor ekonomii prowadzący wykład, wyjaśnij prawo popytu i podaży"
+  },
+  {
+    "id": "tone_05",
+    "category": "tone",
+    "base_prompt": "Co to jest DNA?",
+    "modified_prompt": "Jako biolog molekularny tłumaczący studentom, wyjaśnij czym jest DNA"
   },
   {
     "id": "formality_01",
@@ -36,6 +72,24 @@
     "modified_prompt": "Uprzejmie proszę o naukowe omówienie zjawiska czarnej dziury"
   },
   {
+    "id": "formality_03",
+    "category": "formality",
+    "base_prompt": "Jak wygląda cykl życia gwiazdy?",
+    "modified_prompt": "Proszę o naukowe omówienie etapów ewolucji gwiazdy"
+  },
+  {
+    "id": "formality_04",
+    "category": "formality",
+    "base_prompt": "Dlaczego niebo jest niebieskie?",
+    "modified_prompt": "Proszę o fizyczne wyjaśnienie zjawiska rozpraszania Rayleigha"
+  },
+  {
+    "id": "formality_05",
+    "category": "formality",
+    "base_prompt": "Jak działa silnik elektryczny?",
+    "modified_prompt": "Proszę o techniczne omówienie zasady działania silnika elektrycznego"
+  },
+  {
     "id": "framing_01",
     "category": "framing",
     "base_prompt": "Opisz fotosyntezę",
@@ -48,6 +102,24 @@
     "modified_prompt": "Wyjaśnij czym jest demokracja, zakładając że odbiorcą jest osoba dorosła niemająca wykształcenia politologicznego"
   },
   {
+    "id": "framing_03",
+    "category": "framing",
+    "base_prompt": "Co to jest atom?",
+    "modified_prompt": "Dla dziecka w wieku przedszkolnym wyjaśnij, czym jest atom"
+  },
+  {
+    "id": "framing_04",
+    "category": "framing",
+    "base_prompt": "Jak działa komputer?",
+    "modified_prompt": "Wyjaśnij jak działa komputer osobie po 70. roku życia, która nigdy nie korzystała z technologii"
+  },
+  {
+    "id": "framing_05",
+    "category": "framing",
+    "base_prompt": "Czym jest sztuczna inteligencja?",
+    "modified_prompt": "Wyjaśnij czym jest sztuczna inteligencja zakładając, że słuchaczem jest ekspert z dziedziny neurokognitywistyki"
+  },
+  {
     "id": "reformulation_01",
     "category": "reformulation",
     "base_prompt": "Co powoduje deszcz?",
@@ -58,5 +130,23 @@
     "category": "reformulation",
     "base_prompt": "Co sprawia, że metale przewodzą prąd?",
     "modified_prompt": "Dlaczego metale dobrze przewodzą elektryczność?"
+  },
+  {
+    "id": "reformulation_03",
+    "category": "reformulation",
+    "base_prompt": "Co powoduje trzęsienia ziemi?",
+    "modified_prompt": "Dlaczego dochodzi do trzęsień ziemi?"
+  },
+  {
+    "id": "reformulation_04",
+    "category": "reformulation",
+    "base_prompt": "Co to jest entropia?",
+    "modified_prompt": "Czym jest entropia w termodynamice?"
+  },
+  {
+    "id": "reformulation_05",
+    "category": "reformulation",
+    "base_prompt": "Jak powstaje tęcza?",
+    "modified_prompt": "Skąd się bierze tęcza?"
   }
 ]
