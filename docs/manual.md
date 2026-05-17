@@ -52,11 +52,15 @@ export HF_TOKEN=hf_twoj_token
 git clone https://github.com/mfmatusz/siwy-proj.git
 cd siwy-proj
 
-# Zainstaluj wszystkie zależności (tworzy środowisko wirtualne automatycznie)
-uv sync
+make install        # zależności produkcyjne
+make install-dev    # zależności produkcyjne + dev (pytest, ruff)
+```
 
-# Dla środowiska deweloperskiego (z pytest, ruff):
-uv sync --extra dev
+Jeśli `make` jest niedostępny:
+
+```bash
+uv sync             # produkcyjne
+uv sync --extra dev # + dev
 ```
 
 ---
@@ -91,13 +95,13 @@ wandb:
 
 ### Nadpisywanie parametrów w linii komend
 
-Parametry konfiguracji można nadpisać bez edytowania pliku YAML:
+Parametry konfiguracji można nadpisać bez edytowania pliku YAML przez zmienną `ARGS`:
 
 ```bash
-uv run invoke run --config-overrides="model.name=google/gemma-3-4b-it experiment_name=test_run"
-uv run invoke run --config-overrides="model.device=cuda"
-uv run invoke run --config-overrides="model.quantization=nf4"
-uv run invoke run --config-overrides="wandb.enabled=false"
+make run ARGS="model.name=google/gemma-3-4b-it experiment_name=test_run"
+make run ARGS="model.device=cuda"
+make run ARGS="model.quantization=nf4"
+make run ARGS="wandb.enabled=false"
 ```
 
 ---
@@ -107,7 +111,7 @@ uv run invoke run --config-overrides="wandb.enabled=false"
 ### Pełny pipeline — ekstrakcja wag attention
 
 ```bash
-uv run invoke run
+make run
 ```
 
 Skrypt `scripts/run_experiment.py`:
@@ -133,7 +137,7 @@ Skrypt `scripts/run_experiment.py`:
 ## 5. Atrybucja Inseq
 
 ```bash
-uv run invoke run-inseq
+make run-inseq
 ```
 
 Skrypt `scripts/run_inseq.py` uruchamia analizę atrybucji przy użyciu biblioteki [Inseq](https://github.com/inseq-team/inseq). Aktualnie używana metoda atrybucji: `attention`. Wyniki zapisywane są do:
@@ -155,7 +159,7 @@ Wizualizacje HTML atrybucji są równolegle logowane do W&B.
 ## 6. Generowanie raportu
 
 ```bash
-uv run invoke report
+make report
 ```
 
 Skrypt `scripts/generate_report.py` łączy wyniki ekstrakcji attention i atrybucji Inseq w jeden samowystarczalny raport HTML (obrazy osadzone jako base64 — plik działa bez dostępu do serwera). Raport zawiera dwie sekcje, każda renderowana tylko jeśli odpowiedni katalog istnieje:
@@ -177,23 +181,21 @@ i otwiera się automatycznie w domyślnej przeglądarce po wygenerowaniu.
 
 ```bash
 # 1. Ekstrakcja attention
-uv run invoke run --config-overrides="experiment_name=moj_eksperyment"
+make run ARGS="experiment_name=moj_eksperyment"
 # wyniki: data/processed/moj_eksperyment/
 
-# 2. Atrybucja Inseq (attention, ~2 min na 10 par)
-uv run invoke run-inseq --config-overrides="experiment_name=moj_eksperyment"
+# 2. Atrybucja Inseq (attention, ~2 min na 25 par)
+make run-inseq ARGS="experiment_name=moj_eksperyment"
 # wyniki: data/processed/moj_eksperyment_inseq/
 
 # 3. Wygenerowanie raportu — wymaga obu powyższych kroków
-uv run invoke report --config-overrides="experiment_name=moj_eksperyment"
+make report ARGS="experiment_name=moj_eksperyment"
 # raport: data/processed/moj_eksperyment_report.html (otwiera się automatycznie w przeglądarce)
 ```
 
 ---
 
 ## 7. Narzędzia deweloperskie
-
-### Przez `make` (zalecane — działa na Linux, macOS i Windows)
 
 ```bash
 make test          # testy (instaluje dev-deps automatycznie)
@@ -204,19 +206,10 @@ make install-dev   # instalacja z dev-deps (pytest, ruff)
 make clean         # usuń .venv (np. przed reinstalacją na innym systemie)
 ```
 
-### Przez `invoke`
+Bezpośrednie wywołanie pytest (np. z filtrowaniem):
 
 ```bash
-uv run invoke lint
-uv run invoke format
-uv run invoke test
-uv run invoke check
-```
-
-### Bezpośrednie wywołanie pytest
-
-```bash
-uv run python -m pytest tests/ -v
+uv run python -m pytest tests/ -v -k "test_metrics"
 ```
 
 ---
@@ -275,7 +268,7 @@ uv run wandb login
 **`CUDA out of memory`**
 Włącz kwantyzację NF4 (~2.6 GB wag zamiast ~8 GB w BF16):
 ```bash
-uv run invoke run --config-overrides="model.quantization=nf4"
+make run ARGS="model.quantization=nf4"
 ```
 
 **Model nie ładuje się / błąd przy inicjalizacji**
