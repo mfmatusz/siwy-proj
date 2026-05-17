@@ -23,7 +23,9 @@
 
 - [x] Rozbudować `README.md` — struktura repo
 - [x] Edytować `docs/manual.md` — instrukcja użytkowania krok po kroku
-- [ ] Przygotować system notatek do weekly standup (regulamin §1 pkt 7) — np. `docs/weekly/` lub GitHub Issues
+
+## Postęp prac
+- [x] W ciągu semestru, między demonstracją prototypu a oddaniem projektu zrealizować spotkanie na temat postępu prac projektu - 02.04.2026 r.
 
 ## Analiza literatury (design-proposal)
 
@@ -48,7 +50,6 @@
 
 - [x] Diff heatmapy (modified minus base) — wizualizacja co się zmienia między parami
 - [x] Wykresy zbiorcze: bar chart średniej attention na tokeny instrukcji vs treści per kategoria promptów
-- [ ] Gradient attribution (saliency, integrated gradients) via Inseq — wymaga GPU z CUDA, na MPS zbyt wolne (>40 min/prompt)
 
 ## Deliverables
 
