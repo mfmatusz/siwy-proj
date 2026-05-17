@@ -10,7 +10,7 @@ Małe zmiany w treści promptu potrafią znacząco zmienić odpowiedź modelu j�
 
 Używamy modelu Gemma 3 4B i zestawu ręcznie przygotowanych **par promptów** — każda para to ten sam sens, ale inaczej sformułowane zapytanie (np. „Wyjaśnij grawitację" vs. „Wyjaśnij grawitację krótko i prosto"). Dla każdej pary ekstrahujemy wagi attention ze wszystkich 34 warstw modelu i analizujemy, czy i jak zmienia się rozkład uwagi modelu po modyfikacji promptu.
 
-Pary promptów pokrywają pięć kategorii zmian: **styl**, **ton/rola**, **formalność**, **framing** i **reformulacja** — łącznie 25 par (5 per kategoria). Warstwy analizowane są osobno jako lokalne (sliding window, 1024 tokeny) i globalne (pełny kontekst), co wynika bezpośrednio z architektury Gemma 3. Analizę uzupełnia atrybucja attention (atrybucja gradientowa z przczyn ogranicze sprzętowych jest zbyt czasowożerna) via Inseq (saliency, integrated gradients).
+Pary promptów pokrywają pięć kategorii zmian: **styl**, **ton/rola**, **formalność**, **framing** i **reformulacja** — łącznie 25 par (5 per kategoria). Warstwy analizowane są osobno jako lokalne (sliding window, 1024 tokeny) i globalne (pełny kontekst), co wynika bezpośrednio z architektury Gemma 3. Analizę uzupełnia atrybucja attention (atrybucja gradientowa z przczyn ograniczeń sprzętowych jest zbyt czasowożerna) via Inseq (saliency, integrated gradients).
 
 Projekt łączy budowę reprodukowalnego narzędzia analitycznego z kontrolowanym eksperymentem — wyniki mają charakter zarówno ilościowy (entropia attention, sparsity, średnie wagi per kategoria tokenu) jak i jakościowy (wizualizacje heatmap, diff między parami).
 
@@ -28,8 +28,8 @@ Projekt łączy budowę reprodukowalnego narzędzia analitycznego z kontrolowany
 ```bash
 git clone https://github.com/mfmatusz/siwy-proj.git
 cd siwy-proj
-uv sync
-uv run invoke run
+make install
+make run
 ```
 
 > Szczegółowa instrukcja konfiguracji, uruchamiania i rozwiązywania problemów → **[docs/manual.md](docs/manual.md)**
