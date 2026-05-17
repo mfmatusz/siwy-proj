@@ -48,6 +48,9 @@ select = ["E", "F", "W", "I", "UP", "B", "SIM"]
 [tool.ruff.format]
 quote-style = "double"
 
+[tool.uv]
+link-mode = "copy"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
