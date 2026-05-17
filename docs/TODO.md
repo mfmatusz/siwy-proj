@@ -17,7 +17,7 @@
 
 - [x] Napisać testy `pytest` (regulamin §1 pkt 3, 9)
 - [x] Testy jednostkowe: ekstrakcja attention, agregacja GQA, dataset, metryki, wizualizacja
-- [ ] Testy integracyjne: pipeline end-to-end na małym modelu/mock
+- [x] Testy integracyjne: pipeline end-to-end na małym modelu/mock
 
 ## Dokumentacja
 
