@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Sections: Added, Changed, Removed, Fixed.
 
+## 18.05.2026
+
+### Added
+
+- `scripts/compute_metrics.py` — skrypt obliczający metryki ilościowe (entropia, sparsity, diff L1/L2, delta entropii local/global) z zapisanych tensorów; generuje `metrics.csv` (25 wierszy, per para) i `metrics_by_category.csv` (5 wierszy, średnie per kategoria)
+- `Makefile` — target `make metrics`
+- `docs/report.md` — raport: tabele ilościowe dla wszystkich 25 par, odpowiedzi na pytania RQ1/RQ2/RQ3, obserwacje, wnioski
+
 ## 17.05.2026
 
 ### Added

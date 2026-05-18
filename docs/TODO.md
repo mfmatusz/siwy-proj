@@ -53,7 +53,7 @@
 
 ## Deliverables
 
-- [ ] Raport z obserwacji
+- [x] Raport z obserwacji
 - [x] Dokumentacja + instrukcja użytkowania
 - [x] Testy pytest
 - [ ] Filmik demo (3–5 min)

@@ -191,6 +191,10 @@ make run-inseq ARGS="experiment_name=moj_eksperyment"
 # 3. Wygenerowanie raportu — wymaga obu powyższych kroków
 make report ARGS="experiment_name=moj_eksperyment"
 # raport: data/processed/moj_eksperyment_report.html (otwiera się automatycznie w przeglądarce)
+
+# 4. Liczenie metryk
+make metrics ARGS="experiment_name=moj_eksperyment"
+# csv: data/processed/moj_eksperyment/metrics.csv & metrics_by_category.csv
 ```
 
 ---

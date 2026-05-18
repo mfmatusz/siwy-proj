@@ -41,7 +41,7 @@ conf/               konfiguracja Hydra (config.yaml)
 data/raw/           dataset promptów (niemutowalny)
 data/processed/     wyniki eksperymentów (tensory, heatmapy, raporty)
 docs/               design proposal, analiza literatury, TODO
-scripts/            entry pointy (run_experiment, run_inseq, generate_report)
+scripts/            entry pointy (run_experiment, run_inseq, generate_report, compute_metrics)
 src/
   config/           stałe modelu (warstwy, indeksy GQA), walidacja konfiguracji
   data/             ładowanie datasetu, kategoryzacja tokenów
