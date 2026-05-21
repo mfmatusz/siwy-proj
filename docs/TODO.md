@@ -56,5 +56,5 @@
 - [x] Raport z obserwacji
 - [x] Dokumentacja + instrukcja użytkowania
 - [x] Testy pytest
-- [ ] Filmik demo (3–5 min)
+- [x] Filmik demo (3–5 min)
 - [ ] Prezentacja finalna
